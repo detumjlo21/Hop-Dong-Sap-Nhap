@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#07080c"/>
+<title>PHOENIX — Thỏa thuận điện tử</title>
+<link rel="stylesheet" href="styles.css?v=5"/>
+</head>
+<body class="agreement-body">
+<div class="background-grid"></div>
+<main class="document-page">
+  <section class="document-shell" id="agreementDocument">
+    <div class="document-topline"><span>PHOENIX AGREEMENT SYSTEM</span><span id="docCode">PXN-----</span></div>
+    <header class="document-header">
+      <p class="doc-kicker">BIÊN BẢN XÁC NHẬN ĐIỆN TỬ</p>
+      <h1 id="docTitle">THỎA THUẬN TIẾP NHẬN & THÀNH LẬP NHÁNH</h1>
+      <p id="docSubtitle">Biên bản xác nhận giữa hai Quân Đoàn</p>
+    </header>
+    <section class="document-parties">
+      <article class="party-card"><div class="party-logo-wrap"><img id="docLogoA" class="party-logo" alt="Logo Bên A"/></div><span>BÊN A / QUÂN ĐOÀN CHÍNH</span><strong id="docMainLegion">—</strong></article>
+      <div class="agreement-mark">×</div>
+      <article class="party-card"><div class="party-logo-wrap"><img id="docLogoB" class="party-logo" alt="Logo Bên B"/></div><span>BÊN B / QUÂN ĐOÀN ĐƯỢC TIẾP NHẬN</span><strong id="docSourceLegion">—</strong></article>
+    </section>
+    <section class="doc-result"><span>SAU KHI XÁC NHẬN</span><strong id="docTargetBranch">—</strong></section>
+    <section class="doc-meta-grid">
+      <div><span>Mã hồ sơ</span><strong id="docMetaCode">—</strong></div>
+      <div><span>Trạng thái</span><strong class="doc-confirmed">ĐÃ XÁC NHẬN ĐIỆN TỬ</strong></div>
+      <div><span>Người đại diện</span><strong id="docRepresentative">—</strong></div>
+      <div><span>Thời gian xác nhận</span><strong id="docDate">—</strong></div>
+      <div><span>Chủ Quân Đoàn hiện tại</span><strong id="docLeader">—</strong></div>
+      <div><span>UID Chủ Quân Đoàn</span><strong id="docLeaderUid">—</strong></div>
+    </section>
+    <section class="doc-terms"><div class="doc-section-title"><span>ĐIỀU KHOẢN</span><h2 id="docTermsHeading">Điều khoản thỏa thuận</h2></div><div id="docTerms"></div></section>
+    <section class="doc-signature">
+      <div><span>XÁC NHẬN CỦA BÊN ĐƯỢC TIẾP NHẬN</span><strong id="docSignatureName">—</strong><small>Đã xác nhận điện tử trên hệ thống</small></div>
+      <div class="digital-seal"><span>PHOENIX</span><strong>CONFIRMED</strong><small id="docSealCode">PXN</small></div>
+    </section>
+    <p class="doc-footnote">Bản điện tử này phản ánh nội dung thỏa thuận tại đúng thời điểm người đại diện xác nhận. Nội dung đã xác nhận được lưu độc lập với các chỉnh sửa mẫu thỏa thuận về sau.</p>
+  </section>
+  <div class="document-actions"><a class="button-link secondary" href="index.html">← TRANG THỎA THUẬN</a><button id="docPrintBtn">IN / LƯU PDF</button></div>
+  <p class="message" id="docMessage">Đang tải bản thỏa thuận...</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js?v=1"></script>
+<script src="site-content.js?v=5"></script>
+<script src="agreement.js?v=5"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+PHOENIX BRANCH AGREEMENT V5
+
+Mục tiêu:
+- Dùng lại cho nhiều Quân Đoàn khác nhau.
+- Admin đổi tên hai bên, tên nhánh, UID, điều khoản và logo 2 bên.
+- Người đại diện Bên được tiếp nhận chỉ cần xác nhận 1 lần.
+- Sau xác nhận hệ thống tạo bản thỏa thuận điện tử ngay.
+- Nội dung và logo được snapshot vào từng hồ sơ, nên chỉnh mẫu mới không làm đổi hồ sơ cũ.
+
+CẬP NHẬT REPO ĐANG CHẠY
+1. Giữ nguyên config.js hiện tại.
+2. Copy đè: index.html, merger-admin.html, styles.css, app.js, admin.js, site-content.js.
+3. Thêm mới: agreement.html, agreement.js.
+4. Vào Supabase > SQL Editor, chạy toàn bộ file supabase/v5-upgrade.sql đúng 1 lần.
+5. Commit/Push GitHub. Vercel sẽ tự deploy.
+
+SAU KHI DEPLOY
+- Admin: /merger-admin.html
+- Chọn tab NỘI DUNG WEBSITE.
+- Chọn logo Bên A, logo Bên B, sửa tên hai bên / tên nhánh / điều khoản rồi bấm LƯU.
+- Trang public dùng mẫu mới.
+- Khi người đại diện xác nhận, họ được link /agreement.html?code=PXN-.... để xem/in PDF.
+
+LƯU Ý
+- Logo tối đa 3MB, PNG/JPG/WEBP.
+- Bucket merger-assets được SQL tạo tự động.
+- Không đưa sb_secret/service_role vào config.js.

@@ -7,16 +7,16 @@
 <meta content="#07080c" name="theme-color"/>
 <title>PHOENIX 禄 — Thỏa thuận tiếp nhận Nhánh 3</title>
 <meta content="Cổng ký kết thỏa thuận tiếp nhận TB● Warriors trở thành PHOENIX 禄 — Nhánh 3." name="description"/>
-<link href="styles.css?v=3" rel="stylesheet"/>
+<link href="styles.css?v=5" rel="stylesheet"/>
 </head>
 <body>
 <div class="background-grid"></div>
 <main class="page">
-<header class="hero">
-<img alt="Logo PHOENIX" class="logo" src="assets/logo.png"/>
-<p class="eyebrow" data-content="heroEyebrow">PHOENIX MERGER AGREEMENT</p>
-<h1 data-content="heroTitle">PHOENIX 禄</h1>
-<p class="subtitle" data-content="heroSubtitle">Thỏa thuận tiếp nhận quân đoàn thành nhánh trực thuộc</p>
+<header class="hero agreement-hero">
+<div class="party-hero-logos"><div><img id="partyALogo" alt="Logo Bên A" class="hero-party-logo" src="assets/logo.png"/><span data-content="mainLegion">PHOENIX 禄</span></div><div class="party-link-mark">×</div><div><img id="partyBLogo" alt="Logo Bên B" class="hero-party-logo" hidden/><span data-content="sourceLegion">TB● Warriors</span></div></div>
+<p class="eyebrow" data-content="heroEyebrow">PHOENIX BRANCH AGREEMENT</p>
+<h1 data-content="heroTitle">THỎA THUẬN TIẾP NHẬN NHÁNH</h1>
+<p class="subtitle" data-content="heroSubtitle">Biên bản điện tử xác nhận một Quân Đoàn trở thành nhánh trực thuộc hệ thống PHOENIX</p>
 <div aria-label="Cơ cấu tiếp nhận" class="hero-route">
 <div><span data-content="sourceLabel">Quân đoàn được tiếp nhận</span><strong data-content="sourceLegion">TB● Warriors</strong></div>
 <div class="route-arrow">→</div>
@@ -72,7 +72,7 @@
 </div>
 </section>
 <section class="panel form-panel" id="formPanel">
-<div class="panel-heading"><div><p class="eyebrow" data-content="formEyebrow">HỒ SƠ SÁP NHẬP</p><h2 data-content="formTitle">Xác nhận của người đại diện</h2></div><span class="status-badge pending">CHỜ XÁC NHẬN</span></div>
+<div class="panel-heading"><div><p class="eyebrow" data-content="formEyebrow">XÁC NHẬN ĐIỆN TỬ</p><h2 data-content="formTitle">Xác nhận của người đại diện</h2></div><span class="status-badge pending">CHỜ XÁC NHẬN</span></div>
 <p class="form-intro muted" data-content="formNote">Thông tin dùng để xác nhận thỏa thuận hai bên.</p><form id="mergerForm">
 <div class="form-grid">
 <div class="field"><label for="legionName">Tên Quân Đoàn hiện tại</label><input id="legionName" maxlength="80" name="legionName" required="" value="TB● Warriors"/></div>
@@ -97,17 +97,17 @@
 </section>
 <section class="panel result-card" hidden="" id="successPanel">
 <p class="eyebrow" data-content="targetBranch">PHOENIX 禄 — NHÁNH 3</p>
-<h2>Hồ sơ đã được ghi nhận</h2>
+<h2>Thỏa thuận điện tử đã được tạo</h2>
 <div class="agreement-code" id="agreementCode">PXN-----</div>
 <p>Quân Đoàn: <strong id="successLegion">TB● Warriors</strong></p>
-<p>Trạng thái: <span class="status-badge pending">CHỜ XÁC NHẬN</span></p>
-<p class="muted">Bên TB● Warriors đã ký xác nhận. Thỏa thuận sẽ hoàn tất khi đại diện PHOENIX 禄 ký xác nhận tại trang quản trị.</p>
-<button class="secondary" id="printBtn" type="button">IN / LƯU BIÊN BẢN</button>
+<p>Trạng thái: <span class="status-badge approved">ĐÃ XÁC NHẬN</span></p>
+<p class="muted">Người đại diện đã xác nhận thỏa thuận. Bản điện tử được khóa theo nội dung tại thời điểm xác nhận.</p>
+<div class="result-actions"><a class="button-link" id="agreementLink" href="#">XEM BẢN THỎA THUẬN</a><button class="secondary" id="printBtn" type="button">IN TRANG NÀY</button></div>
 </section>
 <footer class="footer"><span data-content="footerLeft">PHOENIX 禄</span><span data-content="footerRight">BRANCH AGREEMENT PORTAL</span></footer>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js?v=1"></script>
-<script src="site-content.js?v=1"></script><script src="app.js?v=2"></script>
+<script src="site-content.js?v=5"></script><script src="app.js?v=5"></script>
 </body>
 </html>
