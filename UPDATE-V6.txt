@@ -1,0 +1,9 @@
+PHOENIX Agreement V6
+
+- Không chạy lại SQL.
+- Không thay config.js của repo đang chạy.
+- Copy đè: index.html, merger-admin.html, agreement.html, styles.css.
+- admin.js/site-content.js/app.js/agreement.js giữ nguyên logic V5.
+- Admin > NỘI DUNG WEBSITE giờ đặt TÊN QUÂN ĐOÀN BÊN A/B ngay dưới logo và TÊN NHÁNH ngay bên dưới, dễ thấy hơn.
+- Nền public/admin được nâng cấp theo phong cách hợp đồng esports cao cấp.
+- Nội dung hợp đồng đang lưu ở Supabase KHÔNG bị reset khi cập nhật source.

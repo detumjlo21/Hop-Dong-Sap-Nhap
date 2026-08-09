@@ -248,3 +248,68 @@ button:active{transform:translateY(0)}button:disabled{opacity:.45;cursor:not-all
 @media print{
   .agreement-body{background:#fff!important}.agreement-body .background-grid,.document-actions,#docMessage{display:none!important}.document-page{width:100%;padding:0}.document-shell{border:0;border-radius:0;box-shadow:none;background:#fff!important;color:#111;padding:20mm 16mm}.document-shell:before,.document-shell:after{display:none}.document-topline,.doc-meta-grid span,.party-card span,.doc-term p,.doc-footnote,.doc-signature small{color:#555!important}.document-header h1,.party-card strong,.doc-meta-grid strong,.doc-section-title h2,.doc-term h3,.doc-signature>div:first-child strong{color:#111!important}.document-parties,.doc-meta-grid>div,.doc-term,.doc-signature,.doc-result{border-color:#ddd!important;background:#fff!important}.doc-result strong,.doc-kicker,.doc-term-num,.doc-section-title span{color:#a33!important}.digital-seal{border-color:#398b65!important;color:#398b65!important}.digital-seal small{color:#398b65!important}
 }
+
+
+/* === V6 — Premium contract atmosphere + clearer reusable party editor === */
+body:not(.agreement-body){
+  background:
+    radial-gradient(1000px 620px at 50% -12%,rgba(255,73,43,.18),transparent 58%),
+    radial-gradient(720px 520px at 8% 30%,rgba(120,18,27,.12),transparent 67%),
+    radial-gradient(780px 560px at 96% 48%,rgba(255,128,32,.10),transparent 68%),
+    linear-gradient(180deg,#050609 0%,#090b11 42%,#06070a 100%);
+}
+body:not(.agreement-body):before{
+  opacity:.28;
+  background-image:
+    linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px),
+    linear-gradient(135deg,transparent 0 49.7%,rgba(255,111,55,.024) 50%,transparent 50.3% 100%);
+  background-size:52px 52px,52px 52px,180px 180px;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0 68%,transparent 96%);
+  mask-image:linear-gradient(to bottom,#000 0 68%,transparent 96%);
+}
+body:not(.agreement-body):after{
+  width:980px;height:760px;top:-420px;
+  background:radial-gradient(ellipse,rgba(255,67,40,.19),rgba(255,118,39,.045) 42%,transparent 70%);
+  filter:blur(24px);
+}
+.background-grid:before,.background-grid:after{content:"";position:absolute;pointer-events:none}
+.background-grid:before{inset:0;background:
+  linear-gradient(115deg,transparent 0 31%,rgba(255,255,255,.018) 31.15%,transparent 31.3% 100%),
+  linear-gradient(65deg,transparent 0 71%,rgba(255,94,45,.018) 71.15%,transparent 71.3% 100%);background-size:420px 420px,520px 520px;opacity:.65}
+.background-grid:after{left:50%;top:100px;width:min(960px,88vw);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(255,119,62,.32),rgba(255,255,255,.11),rgba(255,119,62,.32),transparent);box-shadow:0 0 45px rgba(255,78,43,.14)}
+.page:before{content:"PHOENIX  •  AGREEMENT  •  SYSTEM";position:fixed;right:-102px;top:45%;transform:rotate(90deg);z-index:-1;color:rgba(255,255,255,.035);font-size:10px;font-weight:900;letter-spacing:5px;pointer-events:none}
+.hero.agreement-hero{padding-top:26px;padding-bottom:34px}
+.hero.agreement-hero:after{content:"";position:absolute;left:50%;bottom:6px;width:min(760px,80vw);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(255,104,51,.28),transparent)}
+.party-hero-logos{position:relative;isolation:isolate;border-color:rgba(255,132,72,.16);background:linear-gradient(180deg,rgba(24,26,34,.82),rgba(8,10,14,.74));box-shadow:0 24px 90px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.035)}
+.party-hero-logos:before{content:"";position:absolute;inset:-1px;border-radius:24px;padding:1px;background:linear-gradient(120deg,rgba(255,105,56,.45),rgba(255,255,255,.03) 42%,rgba(255,138,59,.22));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.panel{border-color:rgba(255,255,255,.095);background:linear-gradient(180deg,rgba(18,21,29,.94),rgba(9,11,16,.965));box-shadow:0 26px 85px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.018)}
+.panel:hover{border-color:rgba(255,255,255,.115)}
+.highlight-panel{box-shadow:0 30px 96px rgba(0,0,0,.42),0 0 70px rgba(255,69,35,.035),inset 0 1px rgba(255,255,255,.018)}
+.form-panel{background:radial-gradient(620px 280px at 50% 0,rgba(255,92,42,.055),transparent 70%),linear-gradient(180deg,rgba(18,21,29,.96),rgba(9,11,16,.98))}
+
+/* CMS: logo + party names are one obvious reusable identity section */
+.cms-logo-section{position:relative;overflow:hidden;padding:18px;gap:16px;border-color:rgba(255,112,52,.22);background:radial-gradient(700px 220px at 50% -20%,rgba(255,79,38,.13),transparent 70%),linear-gradient(180deg,rgba(15,17,23,.76),rgba(7,9,13,.72))}
+.cms-logo-section:before{content:"THÔNG TIN HAI BÊN";grid-column:1/-1;color:#ff9d65;font-size:10px;font-weight:950;letter-spacing:1.6px}
+.cms-logo-card{grid-template-columns:92px 1fr;grid-template-rows:auto auto auto;padding:16px;border-color:rgba(255,255,255,.09);background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(4,6,9,.62));box-shadow:inset 0 1px rgba(255,255,255,.02)}
+.cms-logo-card>span{color:#d8dbe2;font-size:10px;letter-spacing:.65px}
+.cms-party-name-field{grid-column:1/-1;display:grid;gap:7px;padding-top:5px}
+.cms-party-name-field label,.cms-branch-name-field label{margin:0;color:#ffbd93;font-size:10px;font-weight:950;letter-spacing:.9px}
+.cms-party-name-field input,.cms-branch-name-field input{width:100%;min-height:46px;padding:12px 13px;border:1px solid rgba(255,129,65,.22);border-radius:11px;background:#080a0f;color:#fff;font-weight:800;outline:none}
+.cms-party-name-field input:focus,.cms-branch-name-field input:focus{border-color:rgba(255,105,48,.72);box-shadow:0 0 0 3px rgba(255,88,39,.09)}
+.cms-branch-name-field{grid-column:1/-1;display:grid;gap:7px;padding:15px 16px;border:1px solid rgba(255,128,62,.18);border-radius:14px;background:linear-gradient(90deg,rgba(255,80,38,.06),rgba(255,132,48,.025))}
+.cms-branch-name-field small{color:#7f8490;font-size:10px}
+.cms-logo-note{grid-column:1/-1;margin:0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.025);color:#8e939e;font-size:10.5px;line-height:1.55}
+.content-editor .panel-heading{padding-bottom:4px}
+
+/* Contract-like information blocks */
+.info-card{background:linear-gradient(155deg,rgba(255,255,255,.052),rgba(255,255,255,.012));box-shadow:inset 0 1px rgba(255,255,255,.022)}
+.terms-list details{box-shadow:inset 0 1px rgba(255,255,255,.015)}
+.terms-list details[open]{box-shadow:inset 3px 0 rgba(255,102,48,.42),inset 0 1px rgba(255,255,255,.015)}
+.confirm-box{background:linear-gradient(180deg,rgba(5,7,11,.68),rgba(9,11,15,.56))}
+
+@media(max-width:760px){
+  body:not(.agreement-body){background:radial-gradient(620px 380px at 50% -8%,rgba(255,71,39,.17),transparent 66%),linear-gradient(180deg,#050609,#080a0f 55%,#050609)}
+  .page:before{display:none}.background-grid:after{top:76px;width:82vw}.hero.agreement-hero{padding-top:14px}
+  .cms-logo-section{grid-template-columns:1fr;padding:13px}.cms-logo-section:before{grid-column:auto}.cms-logo-card{grid-template-columns:82px 1fr}.cms-logo-preview{width:82px;height:82px}.cms-branch-name-field,.cms-logo-note{grid-column:auto}
+}
