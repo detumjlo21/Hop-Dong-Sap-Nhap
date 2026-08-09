@@ -1,63 +1,26 @@
-# PHOENIX 禄 — Branch Agreement Agreement Portal
+# PHOENIX 禄 — Branch Agreement V4
 
-Web riêng cho thỏa thuận **TB● Warriors → PHOENIX 禄 — Nhánh 3**.
+Web ký kết hai bên để tiếp nhận **TB● Warriors** trở thành **PHOENIX 禄 — Nhánh 3**. Đây là thỏa thuận cơ cấu/quản lý; không phải chuyển thành viên sang một quân đoàn khác.
 
-## Stack
-- HTML / CSS / JavaScript tĩnh
-- Supabase Database + Auth + RLS
-- GitHub
-- Vercel (không cần Next.js, không cần npm build)
+## V4 có gì mới?
 
-## File chính
-- `index.html` — trang người đại diện gửi hồ sơ
-- `merger-admin.html` — trang Admin
-- `styles.css` — giao diện PHOENIX, responsive PC/mobile
-- `app.js` — gửi hồ sơ bằng Supabase RPC
-- `admin.js` — Supabase Auth + duyệt/từ chối/khóa
-- `config.js` — chỉ chứa Project URL + publishable/anon key
-- `supabase/schema.sql` — database, RPC, RLS và bảng admins
+- Trang Admin có 2 khu: **Hồ sơ ký kết** và **Nội dung website**.
+- Admin chỉnh trực tiếp tiêu đề, tên quân đoàn, tên nhánh, UID, ghi chú, Điều 1–6, các câu xác nhận và footer.
+- Nội dung lưu trong bảng `merger_site_content` của Supabase.
+- Trang public tự tải nội dung CMS. Nếu Supabase không tải được, trang vẫn dùng nội dung mặc định trong source.
+- Giữ nguyên đăng nhập Admin, duyệt/ký/từ chối/khóa hồ sơ và toàn bộ logic hồ sơ cũ.
 
-## 1. Supabase
-Mở SQL Editor và chạy toàn bộ `supabase/schema.sql`.
+## Cập nhật từ V3
 
-## 2. Cấu hình frontend
-Mở `config.js` và thay 2 giá trị:
-
-```js
-window.PHOENIX_MERGER_CONFIG = {
-  supabaseUrl: "https://YOUR_PROJECT.supabase.co",
-  supabaseKey: "YOUR_PUBLISHABLE_OR_ANON_KEY"
-};
-```
-
-Publishable/anon key được phép xuất hiện ở frontend. **Không dùng `service_role` hoặc `sb_secret_...` trong repo.**
-
-## 3. Tạo Admin
-Trong Supabase: Authentication > Users > Add user. Tạo email/mật khẩu Admin.
-Copy UUID của user rồi chạy:
-
-```sql
-insert into public.admins(user_id)
-values ('UUID_USER_ADMIN');
-```
-
-Sau đó truy cập `merger-admin.html` và đăng nhập bằng email/mật khẩu vừa tạo.
-
-## 4. Deploy Vercel
-Upload toàn bộ file/thư mục của repo ở root GitHub rồi Import repo vào Vercel.
-
-Đây là web static:
-- Framework Preset: `Other`
-- Root Directory: `./`
-- Build Command: để trống / Override OFF
-- Output Directory: để trống / Override OFF
-- Install Command: để trống / Override OFF
-
-Vercel sẽ phục vụ `index.html` trực tiếp. Không có bước `next build`.
+1. Thay source trên GitHub bằng bộ V4 này (giữ nguyên `config.js` đang chứa URL + publishable key của bạn nếu cần).
+2. Vào **Supabase > SQL Editor**.
+3. Chạy **toàn bộ `supabase/schema.sql`**. Script có thể chạy lại và không xóa hồ sơ cũ.
+4. Vercel tự deploy lại sau khi push GitHub.
+5. Mở `merger-admin.html`, đăng nhập, chọn tab **NỘI DUNG WEBSITE**.
+6. Chỉnh nội dung → **LƯU NỘI DUNG WEBSITE** → bấm **XEM TRANG** để kiểm tra.
 
 ## Bảo mật
-- Khách không được SELECT bảng `merger_applications`.
-- Khách không được UPDATE/DELETE hồ sơ.
-- Khách chỉ gọi RPC `submit_merger_application` để tạo hồ sơ và nhận mã.
-- Admin phải đăng nhập Supabase Auth và có UUID trong `public.admins`.
-- RLS kiểm soát SELECT/UPDATE của Admin.
+
+- Frontend chỉ dùng Supabase publishable/anon key.
+- `anon` chỉ được đọc nội dung website và gọi RPC tạo hồ sơ; không đọc danh sách hồ sơ.
+- Chỉ user có UID trong `public.admins` mới được chỉnh nội dung hoặc duyệt hồ sơ.

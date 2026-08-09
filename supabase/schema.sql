@@ -149,3 +149,48 @@ grant select on table public.admins to authenticated;
 
 -- BƯỚC TẠO ADMIN SAU KHI TẠO USER TRONG Authentication > Users:
 -- insert into public.admins(user_id) values ('UUID_USER_ADMIN');
+
+-- ============================================================
+-- MINI CMS: Admin có thể chỉnh nội dung trang public từ giao diện quản trị.
+-- Nội dung lưu dạng JSONB để thêm/bớt trường sau này không phải đổi schema.
+-- ============================================================
+create table if not exists public.merger_site_content (
+  id text primary key,
+  content jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now(),
+  updated_by uuid references auth.users(id) on delete set null
+);
+
+insert into public.merger_site_content(id, content)
+values ('main', '{}'::jsonb)
+on conflict (id) do nothing;
+
+alter table public.merger_site_content enable row level security;
+
+drop policy if exists "merger_content_public_read" on public.merger_site_content;
+drop policy if exists "merger_content_admin_insert" on public.merger_site_content;
+drop policy if exists "merger_content_admin_update" on public.merger_site_content;
+
+create policy "merger_content_public_read"
+on public.merger_site_content
+for select
+to anon, authenticated
+using (id = 'main');
+
+create policy "merger_content_admin_insert"
+on public.merger_site_content
+for insert
+to authenticated
+with check (
+  id = 'main' and exists(select 1 from public.admins a where a.user_id = auth.uid())
+);
+
+create policy "merger_content_admin_update"
+on public.merger_site_content
+for update
+to authenticated
+using (id = 'main' and exists(select 1 from public.admins a where a.user_id = auth.uid()))
+with check (id = 'main' and exists(select 1 from public.admins a where a.user_id = auth.uid()));
+
+grant select on table public.merger_site_content to anon, authenticated;
+grant insert, update on table public.merger_site_content to authenticated;

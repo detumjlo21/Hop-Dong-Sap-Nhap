@@ -1,4 +1,5 @@
 const cfg = window.PHOENIX_MERGER_CONFIG || {};
+const defaults = window.PHX_SITE_DEFAULTS || {};
 const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey);
 let applications = [];
 let activeApplication = null;
@@ -9,6 +10,8 @@ const loginMessage = document.querySelector('#loginMessage');
 const adminMessage = document.querySelector('#adminMessage');
 const applicationsEl = document.querySelector('#applications');
 const modal = document.querySelector('#detailModal');
+const contentForm = document.querySelector('#contentForm');
+const contentMessage = document.querySelector('#contentMessage');
 
 function esc(value){return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
 function msg(el,text,type=''){el.textContent=text;el.className=`message ${type}`;}
@@ -24,7 +27,7 @@ async function verifyAdmin(){
 async function syncUI(){
   const ok = await verifyAdmin();
   loginPanel.hidden = ok; adminArea.hidden = !ok;
-  if(ok) await loadApplications();
+  if(ok) await Promise.all([loadApplications(),loadSiteContent()]);
 }
 
 document.querySelector('#loginForm').addEventListener('submit', async e => {
@@ -43,6 +46,40 @@ document.querySelector('#statusFilter').addEventListener('change', renderApplica
 
 document.querySelectorAll('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal));
 function closeModal(){modal.hidden=true;activeApplication=null;}
+
+function setAdminTab(name){
+  document.querySelectorAll('[data-admin-tab]').forEach(btn=>btn.classList.toggle('active',btn.dataset.adminTab===name));
+  document.querySelectorAll('[data-admin-panel]').forEach(panel=>panel.hidden=panel.dataset.adminPanel!==name);
+}
+document.querySelectorAll('[data-admin-tab]').forEach(btn=>btn.addEventListener('click',()=>setAdminTab(btn.dataset.adminTab)));
+
+document.querySelector('#resetContentBtn').addEventListener('click',()=>{
+  if(!confirm('Khôi phục các ô về nội dung mặc định trong source? Bạn vẫn cần bấm LƯU NỘI DUNG để áp dụng.')) return;
+  fillContentForm(defaults); msg(contentMessage,'Đã nạp nội dung mặc định. Bấm LƯU NỘI DUNG để áp dụng.','success');
+});
+
+async function loadSiteContent(){
+  msg(contentMessage,'Đang tải nội dung website...');
+  const {data,error}=await sb.from('merger_site_content').select('content,updated_at').eq('id','main').maybeSingle();
+  if(error){msg(contentMessage,`Không tải được CMS: ${error.message}`,'error');fillContentForm(defaults);return;}
+  fillContentForm({...defaults,...(data?.content||{})});
+  msg(contentMessage,data?.updated_at?`Nội dung cập nhật gần nhất: ${fmtDate(data.updated_at)}`:'Đang dùng nội dung mặc định.','');
+}
+function fillContentForm(content){
+  contentForm.querySelectorAll('[name]').forEach(el=>{ if(content[el.name] != null) el.value=content[el.name]; });
+}
+contentForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const content={};
+  contentForm.querySelectorAll('[name]').forEach(el=>content[el.name]=el.value.trim());
+  msg(contentMessage,'Đang lưu nội dung...');
+  const {data:{user}}=await sb.auth.getUser();
+  const {error}=await sb.from('merger_site_content').upsert({id:'main',content,updated_at:new Date().toISOString(),updated_by:user?.id||null},{onConflict:'id'});
+  if(error){msg(contentMessage,error.message,'error');return;}
+  msg(contentMessage,'Đã lưu. Trang public sẽ hiển thị nội dung mới ngay khi tải lại.','success');
+});
+
+document.querySelector('#previewSiteBtn').addEventListener('click',()=>window.open('index.html','_blank','noopener'));
 
 async function loadApplications(){
   msg(adminMessage,'Đang tải hồ sơ...');

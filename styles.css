@@ -180,3 +180,23 @@ button:active{transform:translateY(0)}button:disabled{opacity:.45;cursor:not-all
 }
 
 .field-note{display:block;margin-top:7px;color:var(--muted,#9aa0aa);font-size:.78rem;line-height:1.5}
+
+/* === V4 Admin CMS === */
+.admin-tabs{display:flex;gap:10px;margin:18px 0 22px;padding:6px;border:1px solid rgba(255,255,255,.08);background:rgba(10,12,18,.8);border-radius:16px;position:sticky;top:10px;z-index:20;backdrop-filter:blur(18px)}
+.admin-tab{flex:1;background:transparent!important;border:1px solid transparent!important;color:var(--muted)!important;box-shadow:none!important}
+.admin-tab.active{color:#fff!important;border-color:rgba(255,79,49,.38)!important;background:linear-gradient(135deg,rgba(255,57,28,.22),rgba(255,127,48,.08))!important}
+.content-editor{overflow:visible}
+.cms-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.cms-field{display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(255,255,255,.025)}
+.cms-field:has(textarea){grid-column:1/-1}
+.cms-field label{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#c9cbd4;font-weight:800}
+.cms-field input,.cms-field textarea{width:100%;margin:0;background:rgba(5,7,11,.82);border:1px solid rgba(255,255,255,.11);border-radius:10px;color:#fff;padding:12px 13px;resize:vertical}
+.cms-field textarea{min-height:96px;line-height:1.55}
+.cms-field input:focus,.cms-field textarea:focus{outline:none;border-color:rgba(255,83,48,.75);box-shadow:0 0 0 3px rgba(255,64,35,.09)}
+.cms-savebar{grid-column:1/-1;display:flex;gap:16px;align-items:center;justify-content:space-between;position:sticky;bottom:12px;padding:14px 16px;border:1px solid rgba(255,91,47,.25);border-radius:14px;background:rgba(7,9,14,.94);backdrop-filter:blur(18px);z-index:15;box-shadow:0 16px 42px rgba(0,0,0,.4)}
+.cms-savebar .message{margin:0;flex:1}
+.form-intro{margin:-4px 0 20px;line-height:1.6}
+.term-title{display:inline}
+.term-body .cms-line{margin-top:8px;padding-left:15px;position:relative}
+.term-body .cms-line:before{content:'•';position:absolute;left:0;color:#ff5a37}
+@media(max-width:760px){.cms-form{grid-template-columns:1fr}.cms-field:has(textarea){grid-column:auto}.cms-savebar{grid-column:auto;flex-direction:column;align-items:stretch}.cms-savebar button{width:100%}.admin-tabs{top:6px}.admin-tab{font-size:.76rem;padding:11px 8px}}

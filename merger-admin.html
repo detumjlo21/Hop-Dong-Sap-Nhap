@@ -1,65 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#07080c">
-  <title>PHOENIX 禄 — Branch Agreement Admin</title>
-  <link rel="stylesheet" href="styles.css?v=2">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#07080c" name="theme-color"/>
+<title>PHOENIX 禄 — Branch Agreement Admin</title>
+<link href="styles.css?v=3" rel="stylesheet"/>
 </head>
 <body>
-  <div class="background-grid"></div>
-  <main class="page admin-page">
-    <header class="hero compact">
-      <img src="assets/logo.png" alt="Logo PHOENIX" class="logo small">
-      <p class="eyebrow">PHOENIX BRANCH AGREEMENT CONTROL</p>
-      <h1>Agreement Admin</h1>
-      <p class="subtitle">Ký xác nhận phía PHOENIX 禄 cho thỏa thuận thành lập Nhánh 3</p>
-    </header>
+<div class="background-grid"></div>
+<main class="page admin-page">
+<header class="hero compact">
+<img alt="Logo PHOENIX" class="logo small" src="assets/logo.png"/>
+<p class="eyebrow">PHOENIX BRANCH AGREEMENT CONTROL</p>
+<h1>Agreement Admin</h1>
+<p class="subtitle">Ký xác nhận phía PHOENIX 禄 cho thỏa thuận thành lập Nhánh 3</p>
+</header>
+<section class="panel login-panel" id="loginPanel">
+<h2>Đăng nhập quản trị</h2>
+<p class="muted">Sử dụng tài khoản Supabase Auth đã được cấp quyền trong bảng <code>admins</code>.</p>
+<form id="loginForm">
+<label for="email">Email</label><input autocomplete="username" id="email" required="" type="email"/>
+<label for="password">Mật khẩu</label><input autocomplete="current-password" id="password" required="" type="password"/>
+<button type="submit">ĐĂNG NHẬP</button>
+<p class="message" id="loginMessage"></p>
+</form>
+</section>
+<section hidden="" id="adminArea">
+<section class="panel admin-toolbar">
+<div><p class="eyebrow">DASHBOARD</p><h2>Thỏa thuận chờ ký</h2></div>
+<div class="toolbar-actions"><button class="secondary" id="refreshBtn">LÀM MỚI</button><button class="secondary" id="logoutBtn">ĐĂNG XUẤT</button></div>
+</section><section class="admin-tabs"><button class="admin-tab active" data-admin-tab="applications" type="button">HỒ SƠ KÝ KẾT</button><button class="admin-tab" data-admin-tab="content" type="button">NỘI DUNG WEBSITE</button></section>
+<div data-admin-panel="applications"><section class="metric-grid">
+<article class="metric-card"><span>Tổng hồ sơ</span><strong id="totalCount">0</strong></article>
+<article class="metric-card"><span>Chờ PHOENIX ký</span><strong id="pendingCount">0</strong></article>
+<article class="metric-card"><span>Đã ký đủ 2 bên</span><strong id="approvedCount">0</strong></article>
+<article class="metric-card"><span>Đã khóa</span><strong id="lockedCount">0</strong></article>
+</section><section class="panel">
+<div class="filter-row"><input id="searchInput" placeholder="Tìm mã hồ sơ, quân đoàn, người đại diện, UID..."/><select id="statusFilter"><option value="">Tất cả trạng thái</option><option value="pending">Chờ PHOENIX ký</option><option value="approved">Đã ký đủ 2 bên</option><option value="rejected">Từ chối</option><option value="locked">Đã khóa</option></select></div>
+<p class="message" id="adminMessage"></p>
+<div class="applications" id="applications"><p class="muted">Đang tải...</p></div>
+</section></div>
 
-    <section id="loginPanel" class="panel login-panel">
-      <h2>Đăng nhập quản trị</h2>
-      <p class="muted">Sử dụng tài khoản Supabase Auth đã được cấp quyền trong bảng <code>admins</code>.</p>
-      <form id="loginForm">
-        <label for="email">Email</label><input id="email" type="email" autocomplete="username" required>
-        <label for="password">Mật khẩu</label><input id="password" type="password" autocomplete="current-password" required>
-        <button type="submit">ĐĂNG NHẬP</button>
-        <p id="loginMessage" class="message"></p>
-      </form>
-    </section>
-
-    <section id="adminArea" hidden>
-      <section class="panel admin-toolbar">
-        <div><p class="eyebrow">DASHBOARD</p><h2>Thỏa thuận chờ ký</h2></div>
-        <div class="toolbar-actions"><button id="refreshBtn" class="secondary">LÀM MỚI</button><button id="logoutBtn" class="secondary">ĐĂNG XUẤT</button></div>
-      </section>
-
-      <section class="metric-grid">
-        <article class="metric-card"><span>Tổng hồ sơ</span><strong id="totalCount">0</strong></article>
-        <article class="metric-card"><span>Chờ PHOENIX ký</span><strong id="pendingCount">0</strong></article>
-        <article class="metric-card"><span>Đã ký đủ 2 bên</span><strong id="approvedCount">0</strong></article>
-        <article class="metric-card"><span>Đã khóa</span><strong id="lockedCount">0</strong></article>
-      </section>
-
-      <section class="panel">
-        <div class="filter-row"><input id="searchInput" placeholder="Tìm mã hồ sơ, quân đoàn, người đại diện, UID..."><select id="statusFilter"><option value="">Tất cả trạng thái</option><option value="pending">Chờ PHOENIX ký</option><option value="approved">Đã ký đủ 2 bên</option><option value="rejected">Từ chối</option><option value="locked">Đã khóa</option></select></div>
-        <p id="adminMessage" class="message"></p>
-        <div id="applications" class="applications"><p class="muted">Đang tải...</p></div>
-      </section>
-    </section>
-
-    <div id="detailModal" class="modal" hidden>
-      <div class="modal-backdrop" data-close-modal></div>
-      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-head"><div><p class="eyebrow">CHI TIẾT HỒ SƠ</p><h2 id="modalTitle">--</h2></div><button class="icon-btn secondary" data-close-modal>✕</button></div>
-        <div id="modalContent"></div>
-        <div id="modalActions" class="modal-actions"></div>
-      </section>
-    </div>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js?v=1"></script>
-  <script src="admin.js?v=1"></script>
+<div data-admin-panel="content" hidden=""><section class="panel content-editor"><div class="panel-heading"><div><p class="eyebrow">MINI CMS</p><h2>Chỉnh nội dung website</h2><p class="muted">Thay đổi tại đây được lưu vào Supabase và áp dụng cho trang public sau khi tải lại. Không cần sửa code.</p></div><div class="toolbar-actions"><button class="secondary" id="previewSiteBtn" type="button">XEM TRANG</button><button class="secondary" id="resetContentBtn" type="button">NẠP MẶC ĐỊNH</button></div></div><form class="cms-form" id="contentForm"><div class="cms-field"><label for="cms_heroEyebrow">Eyebrow đầu trang</label><input id="cms_heroEyebrow" name="heroEyebrow" type="text"/></div><div class="cms-field"><label for="cms_heroTitle">Tiêu đề chính</label><input id="cms_heroTitle" name="heroTitle" type="text"/></div><div class="cms-field"><label for="cms_heroSubtitle">Mô tả dưới tiêu đề</label><input id="cms_heroSubtitle" name="heroSubtitle" type="text"/></div><div class="cms-field"><label for="cms_sourceLegion">Tên quân đoàn được tiếp nhận</label><input id="cms_sourceLegion" name="sourceLegion" type="text"/></div><div class="cms-field"><label for="cms_targetBranch">Tên nhánh sau ký kết</label><input id="cms_targetBranch" name="targetBranch" type="text"/></div><div class="cms-field"><label for="cms_mainLegion">Tên quân đoàn chính</label><input id="cms_mainLegion" name="mainLegion" type="text"/></div><div class="cms-field"><label for="cms_branchBadge">Nhãn nhánh</label><input id="cms_branchBadge" name="branchBadge" type="text"/></div><div class="cms-field"><label for="cms_ownerUid">UID Chủ Quân Đoàn</label><input id="cms_ownerUid" name="ownerUid" type="text"/></div><div class="cms-field"><label for="cms_notice">Ghi chú cơ cấu / giải thích</label><textarea id="cms_notice" name="notice" rows="4"></textarea></div><div class="cms-field"><label for="cms_termsHeading">Tiêu đề khu điều khoản</label><input id="cms_termsHeading" name="termsHeading" type="text"/></div><div class="cms-field"><label for="cms_term1Title">Tiêu đề Điều 1</label><input id="cms_term1Title" name="term1Title" type="text"/></div><div class="cms-field"><label for="cms_term1Body">Nội dung Điều 1 (xuống dòng để tách ý)</label><textarea id="cms_term1Body" name="term1Body" rows="4"></textarea></div><div class="cms-field"><label for="cms_term2Title">Tiêu đề Điều 2</label><input id="cms_term2Title" name="term2Title" type="text"/></div><div class="cms-field"><label for="cms_term2Body">Nội dung Điều 2 (xuống dòng để tách ý)</label><textarea id="cms_term2Body" name="term2Body" rows="4"></textarea></div><div class="cms-field"><label for="cms_term3Title">Tiêu đề Điều 3</label><input id="cms_term3Title" name="term3Title" type="text"/></div><div class="cms-field"><label for="cms_term3Body">Nội dung Điều 3 (xuống dòng để tách ý)</label><textarea id="cms_term3Body" name="term3Body" rows="4"></textarea></div><div class="cms-field"><label for="cms_term4Title">Tiêu đề Điều 4</label><input id="cms_term4Title" name="term4Title" type="text"/></div><div class="cms-field"><label for="cms_term4Body">Nội dung Điều 4 (xuống dòng để tách ý)</label><textarea id="cms_term4Body" name="term4Body" rows="4"></textarea></div><div class="cms-field"><label for="cms_term5Title">Tiêu đề Điều 5</label><input id="cms_term5Title" name="term5Title" type="text"/></div><div class="cms-field"><label for="cms_term5Body">Nội dung Điều 5 (xuống dòng để tách ý)</label><textarea id="cms_term5Body" name="term5Body" rows="4"></textarea></div><div class="cms-field"><label for="cms_term6Title">Tiêu đề Điều 6</label><input id="cms_term6Title" name="term6Title" type="text"/></div><div class="cms-field"><label for="cms_term6Body">Nội dung Điều 6 (xuống dòng để tách ý)</label><textarea id="cms_term6Body" name="term6Body" rows="4"></textarea></div><div class="cms-field"><label for="cms_formEyebrow">Eyebrow form ký</label><input id="cms_formEyebrow" name="formEyebrow" type="text"/></div><div class="cms-field"><label for="cms_formTitle">Tiêu đề form ký</label><input id="cms_formTitle" name="formTitle" type="text"/></div><div class="cms-field"><label for="cms_formNote">Ghi chú đầu form</label><textarea id="cms_formNote" name="formNote" rows="4"></textarea></div><div class="cms-field"><label for="cms_confirmStructureText">Xác nhận cơ cấu</label><textarea id="cms_confirmStructureText" name="confirmStructureText" rows="4"></textarea></div><div class="cms-field"><label for="cms_confirmLongTermText">Xác nhận hoạt động lâu dài</label><textarea id="cms_confirmLongTermText" name="confirmLongTermText" rows="4"></textarea></div><div class="cms-field"><label for="cms_confirmDisciplineText">Xác nhận kỷ luật</label><textarea id="cms_confirmDisciplineText" name="confirmDisciplineText" rows="4"></textarea></div><div class="cms-field"><label for="cms_confirmRightsText">Xác nhận quyền &amp; trách nhiệm</label><textarea id="cms_confirmRightsText" name="confirmRightsText" rows="4"></textarea></div><div class="cms-field"><label for="cms_confirmFinalText">Xác nhận cuối</label><textarea id="cms_confirmFinalText" name="confirmFinalText" rows="4"></textarea></div><div class="cms-field"><label for="cms_submitButtonText">Chữ trên nút ký</label><input id="cms_submitButtonText" name="submitButtonText" type="text"/></div><div class="cms-field"><label for="cms_footerLeft">Footer trái</label><input id="cms_footerLeft" name="footerLeft" type="text"/></div><div class="cms-field"><label for="cms_footerRight">Footer phải</label><input id="cms_footerRight" name="footerRight" type="text"/></div><div class="cms-savebar"><p class="message" id="contentMessage"></p><button type="submit">LƯU NỘI DUNG WEBSITE</button></div></form></section></div></section>
+<div class="modal" hidden="" id="detailModal">
+<div class="modal-backdrop" data-close-modal=""></div>
+<section aria-labelledby="modalTitle" aria-modal="true" class="modal-card" role="dialog">
+<div class="modal-head"><div><p class="eyebrow">CHI TIẾT HỒ SƠ</p><h2 id="modalTitle">--</h2></div><button class="icon-btn secondary" data-close-modal="">✕</button></div>
+<div id="modalContent"></div>
+<div class="modal-actions" id="modalActions"></div>
+</section>
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js?v=1"></script>
+<script src="site-content.js?v=1"></script><script src="admin.js?v=2"></script>
 </body>
 </html>
