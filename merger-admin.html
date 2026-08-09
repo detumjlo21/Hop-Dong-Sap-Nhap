@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#07080c">
-  <title>PHOENIX 禄 — Merger Admin</title>
-  <link rel="stylesheet" href="styles.css?v=1">
+  <title>PHOENIX 禄 — Branch Agreement Admin</title>
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <div class="background-grid"></div>
   <main class="page admin-page">
     <header class="hero compact">
       <img src="assets/logo.png" alt="Logo PHOENIX" class="logo small">
-      <p class="eyebrow">PHOENIX MERGER CONTROL</p>
-      <h1>Merger Admin</h1>
-      <p class="subtitle">Quản lý hồ sơ sáp nhập PHOENIX 禄 — Nhánh 3</p>
+      <p class="eyebrow">PHOENIX BRANCH AGREEMENT CONTROL</p>
+      <h1>Agreement Admin</h1>
+      <p class="subtitle">Ký xác nhận phía PHOENIX 禄 cho thỏa thuận thành lập Nhánh 3</p>
     </header>
 
     <section id="loginPanel" class="panel login-panel">
@@ -30,19 +30,19 @@
 
     <section id="adminArea" hidden>
       <section class="panel admin-toolbar">
-        <div><p class="eyebrow">DASHBOARD</p><h2>Hồ sơ sáp nhập</h2></div>
+        <div><p class="eyebrow">DASHBOARD</p><h2>Thỏa thuận chờ ký</h2></div>
         <div class="toolbar-actions"><button id="refreshBtn" class="secondary">LÀM MỚI</button><button id="logoutBtn" class="secondary">ĐĂNG XUẤT</button></div>
       </section>
 
       <section class="metric-grid">
         <article class="metric-card"><span>Tổng hồ sơ</span><strong id="totalCount">0</strong></article>
-        <article class="metric-card"><span>Chờ duyệt</span><strong id="pendingCount">0</strong></article>
-        <article class="metric-card"><span>Đã xác nhận</span><strong id="approvedCount">0</strong></article>
+        <article class="metric-card"><span>Chờ PHOENIX ký</span><strong id="pendingCount">0</strong></article>
+        <article class="metric-card"><span>Đã ký đủ 2 bên</span><strong id="approvedCount">0</strong></article>
         <article class="metric-card"><span>Đã khóa</span><strong id="lockedCount">0</strong></article>
       </section>
 
       <section class="panel">
-        <div class="filter-row"><input id="searchInput" placeholder="Tìm mã hồ sơ, quân đoàn, người đại diện, UID..."><select id="statusFilter"><option value="">Tất cả trạng thái</option><option value="pending">Chờ xác nhận</option><option value="approved">Đã xác nhận</option><option value="rejected">Từ chối</option><option value="locked">Đã khóa</option></select></div>
+        <div class="filter-row"><input id="searchInput" placeholder="Tìm mã hồ sơ, quân đoàn, người đại diện, UID..."><select id="statusFilter"><option value="">Tất cả trạng thái</option><option value="pending">Chờ PHOENIX ký</option><option value="approved">Đã ký đủ 2 bên</option><option value="rejected">Từ chối</option><option value="locked">Đã khóa</option></select></div>
         <p id="adminMessage" class="message"></p>
         <div id="applications" class="applications"><p class="muted">Đang tải...</p></div>
       </section>

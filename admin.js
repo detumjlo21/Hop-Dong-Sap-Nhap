@@ -13,7 +13,7 @@ const modal = document.querySelector('#detailModal');
 function esc(value){return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
 function msg(el,text,type=''){el.textContent=text;el.className=`message ${type}`;}
 function fmtDate(v){if(!v)return '—';return new Intl.DateTimeFormat('vi-VN',{dateStyle:'short',timeStyle:'short'}).format(new Date(v));}
-function statusLabel(s){return ({pending:'CHỜ XÁC NHẬN',approved:'ĐÃ XÁC NHẬN',rejected:'TỪ CHỐI',locked:'ĐÃ KHÓA'})[s] || s;}
+function statusLabel(s){return ({pending:'CHỜ PHOENIX KÝ',approved:'ĐÃ KÝ ĐỦ 2 BÊN',rejected:'TỪ CHỐI',locked:'ĐÃ KHÓA'})[s] || s;}
 
 async function verifyAdmin(){
   const {data:{user}} = await sb.auth.getUser();
@@ -79,14 +79,14 @@ function openModal(id){
       <div class="detail-item"><span>Trạng thái</span><strong>${esc(statusLabel(x.status))}</strong></div>
       <div class="detail-item"><span>Chủ QĐ hiện tại</span><strong>${esc(x.current_leader_name)}</strong></div>
       <div class="detail-item"><span>UID Chủ QĐ</span><strong>${esc(x.current_leader_uid)}</strong></div>
-      <div class="detail-item"><span>Số thành viên</span><strong>${esc(x.member_count)}</strong></div>
+      <div class="detail-item"><span>Quy mô thành viên hiện tại</span><strong>${esc(x.member_count)}</strong></div>
       <div class="detail-item"><span>Người đại diện</span><strong>${esc(x.representative_name)}</strong></div>
       <div class="detail-item"><span>Email</span><strong>${esc(x.email||'—')}</strong></div>
       <div class="detail-item"><span>Ngày xác nhận</span><strong>${esc(fmtDate(x.created_at))}</strong></div>
     </div>
     <div class="confirm-list"><p>✓ Cơ cấu quản lý: ${x.management_confirmed?'Đã xác nhận':'Chưa xác nhận'}</p><p>✓ Cam kết lâu dài: ${x.long_term_confirmed?'Đã xác nhận':'Chưa xác nhận'}</p><p>✓ Kỷ luật: ${x.discipline_confirmed?'Đã xác nhận':'Chưa xác nhận'}</p><p>✓ Quyền & trách nhiệm: ${x.rights_confirmed?'Đã xác nhận':'Chưa xác nhận'}</p><p>✓ Xác nhận cuối: ${x.final_confirmed?'Đã xác nhận':'Chưa xác nhận'}</p></div>`;
   const actions=document.querySelector('#modalActions');
-  actions.innerHTML=`<button data-status="approved">XÁC NHẬN</button><button class="danger" data-status="rejected">TỪ CHỐI</button><button class="secondary" data-status="locked">KHÓA HỒ SƠ</button>${x.status!=='pending'?'<button class="secondary" data-status="pending">ĐƯA VỀ CHỜ DUYỆT</button>':''}`;
+  actions.innerHTML=`<button data-status="approved">KÝ XÁC NHẬN BÊN PHOENIX</button><button class="danger" data-status="rejected">TỪ CHỐI</button><button class="secondary" data-status="locked">KHÓA HỒ SƠ</button>${x.status!=='pending'?'<button class="secondary" data-status="pending">ĐƯA VỀ CHỜ PHOENIX KÝ</button>':''}`;
   actions.querySelectorAll('[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(btn.dataset.status)));
   modal.hidden=false;
 }
