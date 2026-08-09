@@ -19,4 +19,21 @@ function render(data){
   const code=new URLSearchParams(location.search).get('code');if(!code){msg.textContent='Thiếu mã hồ sơ.';msg.className='message error';return;}
   try{const sb=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseKey);const {data,error}=await sb.rpc('get_merger_agreement_document',{p_code:code});if(error)throw error;if(!data)throw new Error('Không tìm thấy bản thỏa thuận.');render(data);}catch(e){msg.textContent=e.message||'Không tải được thỏa thuận.';msg.className='message error';}
 })();
-document.querySelector('#docPrintBtn').addEventListener('click',()=>window.print());
+const printBtn=document.querySelector('#docPrintBtn');
+if(printBtn){
+  printBtn.addEventListener('click',async()=>{
+    const old=printBtn.textContent;
+    printBtn.disabled=true;
+    printBtn.textContent='ĐANG CHUẨN BỊ PDF...';
+    try{
+      if(document.fonts?.ready) await document.fonts.ready;
+      const imgs=[...document.querySelectorAll('#agreementDocument img')].filter(img=>!img.hidden && img.src);
+      await Promise.all(imgs.map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});setTimeout(resolve,2500);}))); 
+      await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+      window.print();
+    }finally{
+      setTimeout(()=>{printBtn.disabled=false;printBtn.textContent=old;},500);
+    }
+  });
+}
+

@@ -313,3 +313,31 @@ body:not(.agreement-body):after{
   .page:before{display:none}.background-grid:after{top:76px;width:82vw}.hero.agreement-hero{padding-top:14px}
   .cms-logo-section{grid-template-columns:1fr;padding:13px}.cms-logo-section:before{grid-column:auto}.cms-logo-card{grid-template-columns:82px 1fr}.cms-logo-preview{width:82px;height:82px}.cms-branch-name-field,.cms-logo-note{grid-column:auto}
 }
+
+
+/* === V6.1 — Reliable A4 print / Save as PDF === */
+@page{size:A4 portrait;margin:0}
+@media print{
+  html,body{width:210mm!important;min-height:297mm!important;margin:0!important;padding:0!important;background:#fff!important;color:#111!important;overflow:visible!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body.agreement-body{background:#fff!important}
+  body.agreement-body:before,body.agreement-body:after,.agreement-body .background-grid,.document-actions,#docMessage{display:none!important}
+  .document-page{display:block!important;width:210mm!important;max-width:none!important;margin:0!important;padding:0!important;background:#fff!important}
+  .document-shell{box-sizing:border-box!important;width:210mm!important;min-height:297mm!important;margin:0!important;padding:14mm 14mm 16mm!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#fff!important;color:#111!important;overflow:visible!important;filter:none!important;backdrop-filter:none!important;transform:none!important}
+  .document-shell:before,.document-shell:after{display:none!important}
+  .document-topline{color:#555!important;border-bottom:1px solid #d9d9d9!important}
+  .document-header{padding:9mm 0 6mm!important}
+  .document-header h1{color:#111!important;font-size:24pt!important;line-height:1.12!important}
+  .document-header p:last-child{color:#555!important}
+  .document-parties{grid-template-columns:1fr 24mm 1fr!important;gap:3mm!important;padding:4mm!important;border:1px solid #d9d9d9!important;border-radius:4mm!important;background:#fff!important;break-inside:avoid!important;page-break-inside:avoid!important}
+  .party-card{padding:2mm!important}.party-card span{color:#666!important}.party-card strong{color:#111!important}
+  .party-logo-wrap{width:23mm!important;height:23mm!important;border:1px solid #ddd!important;border-radius:4mm!important;background:#fff!important}
+  .party-logo{max-width:21mm!important;max-height:21mm!important;object-fit:contain!important;filter:none!important}
+  .agreement-mark{color:#a33!important}
+  .doc-result{margin-top:3mm!important;padding:4mm!important;border:1px solid #e2c5bd!important;border-radius:3mm!important;background:#fff!important;break-inside:avoid!important;page-break-inside:avoid!important}.doc-result strong{color:#8e2f25!important}
+  .doc-meta-grid{grid-template-columns:repeat(3,1fr)!important;gap:2.5mm!important;margin-top:5mm!important;break-inside:avoid!important;page-break-inside:avoid!important}.doc-meta-grid>div{padding:3mm!important;border:1px solid #ddd!important;border-radius:2.5mm!important;background:#fff!important}.doc-meta-grid span{color:#666!important}.doc-meta-grid strong{color:#111!important}.doc-confirmed{color:#1f6a49!important}
+  .doc-terms{margin-top:6mm!important}.doc-section-title{border-bottom:1px solid #d8d8d8!important}.doc-section-title h2{color:#111!important}.doc-section-title span{color:#9a3b2e!important}
+  .doc-term{grid-template-columns:11mm 1fr!important;gap:3mm!important;padding:4mm 0!important;border-bottom:1px solid #e5e5e5!important;break-inside:avoid!important;page-break-inside:avoid!important}.doc-term-num{width:9mm!important;height:9mm!important;border:1px solid #d7b0a8!important;color:#9a3b2e!important}.doc-term h3{color:#111!important}.doc-term p{color:#333!important;font-size:9.2pt!important;line-height:1.48!important}
+  .doc-signature{grid-template-columns:1fr 34mm!important;gap:5mm!important;margin-top:6mm!important;padding:4mm!important;border:1px solid #d9d9d9!important;border-radius:3mm!important;background:#fff!important;break-inside:avoid!important;page-break-inside:avoid!important}.doc-signature>div:first-child span,.doc-signature small{color:#666!important}.doc-signature>div:first-child strong{color:#111!important}.digital-seal{width:30mm!important;height:30mm!important;border-color:#36795b!important;color:#36795b!important;box-shadow:none!important}.digital-seal small{color:#36795b!important}
+  .doc-footnote{color:#555!important;break-inside:avoid!important;page-break-inside:avoid!important}
+  *{animation:none!important;transition:none!important;text-shadow:none!important}
+}
