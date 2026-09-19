@@ -28,10 +28,18 @@
 </form>
 </section>
 <section hidden="" id="adminArea">
-<section class="panel admin-toolbar">
-<div><p class="eyebrow">DASHBOARD</p><h2>Quản lý thỏa thuận điện tử</h2></div>
-<div class="toolbar-actions"><button class="secondary" id="refreshBtn">LÀM MỚI</button><button class="secondary" id="logoutBtn">ĐĂNG XUẤT</button></div>
-</section><section class="admin-tabs"><button class="admin-tab active" data-admin-tab="applications" type="button">HỒ SƠ KÝ KẾT</button><button class="admin-tab" data-admin-tab="content" type="button">NỘI DUNG WEBSITE</button></section>
+
+<div class="admin-shell">
+<aside class="admin-sidebar">
+  <div class="admin-brand"><strong>PHOENIX CONTROL</strong><span>Branch Agreement System</span></div>
+  <nav class="admin-nav" aria-label="Điều hướng Admin">
+    <button class="admin-tab active" data-admin-tab="applications" type="button">▣ &nbsp; HỒ SƠ KÝ KẾT</button>
+    <button class="admin-tab" data-admin-tab="content" type="button">⚙ &nbsp; CẤU HÌNH WEBSITE</button>
+  </nav>
+  <div class="sidebar-actions"><button class="secondary" id="refreshBtn">↻ LÀM MỚI</button><button class="secondary" id="logoutBtn">ĐĂNG XUẤT</button></div>
+</aside>
+<section class="admin-content">
+<div class="dashboard-head"><div><p class="eyebrow">CONTROL CENTER</p><h2>Quản lý sáp nhập</h2></div><div class="dashboard-actions"><button class="secondary" id="refreshBtnTop" type="button">↻ LÀM MỚI</button></div></div>
 <div data-admin-panel="applications"><section class="metric-grid">
 <article class="metric-card"><span>Tổng hồ sơ</span><strong id="totalCount">0</strong></article>
 <article class="metric-card"><span>Đã gửi / chờ xử lý</span><strong id="pendingCount">0</strong></article>
@@ -69,17 +77,12 @@
       <small>Ví dụ nhập <b>4</b> → PHOENIX 禄 — Nhánh 4.</small>
     </div>
   </section>
-  <section class="panel" style="margin-top:16px">
-    <div class="panel-heading">
-      <div><p class="eyebrow">XEM TRƯỚC</p><h2>Thông tin sẽ hiển thị</h2></div>
-    </div>
-    <div class="info-grid">
-      <article class="info-card"><span>Quân Đoàn chính</span><strong>PHOENIX 禄</strong></article>
-      <article class="info-card"><span>Quân Đoàn sáp nhập</span><strong id="cms_targetSourcePreview">—</strong></article>
-      <article class="info-card"><span>Tên nhánh</span><strong id="cms_targetBranchPreview">—</strong></article>
-      <article class="info-card"><span>Nhãn nhánh</span><strong id="cms_branchBadgePreview">—</strong></article>
-    </div>
-  </section>
+  <div class="preview-strip">
+    <div class="preview-chip"><span>Quân Đoàn chính</span><strong>PHOENIX 禄</strong></div>
+    <div class="preview-chip"><span>Quân Đoàn sáp nhập</span><strong id="cms_targetSourcePreview">—</strong></div>
+    <div class="preview-chip"><span>Tên nhánh</span><strong id="cms_targetBranchPreview">—</strong></div>
+    <div class="preview-chip"><span>Nhãn nhánh</span><strong id="cms_branchBadgePreview">—</strong></div>
+  </div>
   <div class="cms-savebar">
     <p class="message" id="contentMessage"></p>
     <button type="submit">LƯU CẤU HÌNH</button>
@@ -87,6 +90,7 @@
 </form>
 </section>
 </div>
+</section></div>
 <div class="modal" hidden="" id="detailModal">
 <div class="modal-backdrop" data-close-modal=""></div>
 <section aria-labelledby="modalTitle" aria-modal="true" class="modal-card" role="dialog">
@@ -99,5 +103,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js?v=1"></script>
 <script src="site-content.js?v=7"></script><script src="admin.js?v=7"></script>
+<script>document.querySelector("#refreshBtnTop")?.addEventListener("click",()=>document.querySelector("#refreshBtn")?.click());</script>
 </body>
 </html>
