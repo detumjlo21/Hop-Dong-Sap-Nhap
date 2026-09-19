@@ -24,3 +24,7 @@ Web ký kết hai bên để tiếp nhận **TB● Warriors** trở thành **PHO
 - Frontend chỉ dùng Supabase publishable/anon key.
 - `anon` chỉ được đọc nội dung website và gọi RPC tạo hồ sơ; không đọc danh sách hồ sơ.
 - Chỉ user có UID trong `public.admins` mới được chỉnh nội dung hoặc duyệt hồ sơ.
+
+
+## Cấu hình nhanh Admin
+Trong `merger-admin.html` > tab **CẤU HÌNH SÁP NHẬP**, chỉ cần sửa **Tên Quân Đoàn muốn sáp nhập** và **Số Nhánh**. Website tự sinh tên `PHOENIX 禄 — Nhánh X` và cập nhật các nội dung liên quan.

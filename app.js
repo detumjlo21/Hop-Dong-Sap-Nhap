@@ -20,8 +20,29 @@ function setLogo(selector,url,fallback=''){
   const src=clean(url)||fallback;
   if(src){img.src=src;img.hidden=false;}else{img.removeAttribute('src');img.hidden=true;}
 }
+function normalizeSiteContent(content){
+  const raw={...defaults,...(content||{})};
+  const main=defaults.mainLegion||'PHOENIX 禄';
+  const source=clean(raw.sourceLegion)||defaults.sourceLegion;
+  const branch=clean(raw.branchNumber)||String(defaults.branchNumber||'3');
+  const target=`${main} — Nhánh ${branch}`;
+  const badge=`NHÁNH ${branch}`;
+  const oldSource=clean(raw.previousSourceLegion)||defaults.sourceLegion;
+  const replaceDynamic=(value)=>{
+    if(typeof value!=='string') return value;
+    return value
+      .replaceAll(oldSource,source)
+      .replace(/PHOENIX 禄\s*[—-]\s*Nhánh\s*\d+/gi,target)
+      .replace(/NHÁNH\s*\d+/gi,badge);
+  };
+  const normalized={...raw,mainLegion:main,sourceLegion:source,branchNumber:branch,targetBranch:target,branchBadge:badge};
+  Object.keys(normalized).forEach(k=>{ if(typeof normalized[k]==='string') normalized[k]=replaceDynamic(normalized[k]); });
+  normalized.mainLegion=main; normalized.sourceLegion=source; normalized.branchNumber=branch;
+  normalized.targetBranch=target; normalized.branchBadge=badge;
+  return normalized;
+}
 function applySiteContent(content){
-  siteContent={...defaults,...(content||{})};
+  siteContent=normalizeSiteContent(content);
   document.querySelectorAll('[data-content]').forEach(el=>{const key=el.dataset.content;if(siteContent[key]==null)return;if(el.dataset.multiline==='true')renderMultiline(el,siteContent[key]);else el.textContent=siteContent[key];});
   setLogo('#partyALogo',siteContent.partyALogoUrl,'assets/logo.png');
   setLogo('#partyBLogo',siteContent.partyBLogoUrl,'');
