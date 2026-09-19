@@ -6,17 +6,7 @@ function fmt(v){return v?new Intl.DateTimeFormat('vi-VN',{dateStyle:'long',timeS
 function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v||'—';}
 function setLogo(id,url){const el=document.getElementById(id);if(!el)return;if(url){el.src=url;el.hidden=false;}else{el.hidden=true;}}
 function render(data){
-  const raw={...defaults,...(data.agreement_snapshot||{})};
-  const main=defaults.mainLegion||'PHOENIX 禄';
-  const source=String(raw.sourceLegion||data.legion_name||defaults.sourceLegion||'').trim();
-  const branch=String(raw.branchNumber||'3').trim();
-  const target=`${main} — Nhánh ${branch}`;
-  const badge=`NHÁNH ${branch}`;
-  const oldSource=String(raw.previousSourceLegion||defaults.sourceLegion||'').trim();
-  const replaceDynamic=v=>typeof v==='string'?v.replaceAll(oldSource,source).replace(/PHOENIX 禄\s*[—-]\s*Nhánh\s*\d+/gi,target).replace(/NHÁNH\s*\d+/gi,badge):v;
-  const c={...raw};
-  Object.keys(c).forEach(k=>{if(typeof c[k]==='string')c[k]=replaceDynamic(c[k]);});
-  c.mainLegion=main;c.sourceLegion=source;c.targetBranch=target;c.branchBadge=badge;
+  const c={...defaults,...(data.agreement_snapshot||{})};
   setText('docCode',data.agreement_code);setText('docMetaCode',data.agreement_code);setText('docSealCode',data.agreement_code);
   setText('docTitle',c.agreementTitle);setText('docSubtitle',c.agreementSubtitle);setText('docMainLegion',c.mainLegion);setText('docSourceLegion',data.legion_name||c.sourceLegion);setText('docTargetBranch',c.targetBranch);
   setLogo('docLogoA',c.partyALogoUrl||'assets/logo.png');setLogo('docLogoB',c.partyBLogoUrl||'');

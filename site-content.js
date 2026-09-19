@@ -6,7 +6,6 @@ window.PHX_SITE_DEFAULTS = {
   targetLabel: 'SAU KHI XÁC NHẬN',
   mainLegion: 'PHOENIX 禄',
   sourceLegion: 'TB● Warriors',
-  branchNumber: '3',
   targetBranch: 'PHOENIX 禄 — Nhánh 3',
   branchBadge: 'NHÁNH 3',
   ownerUid: '2186899354',

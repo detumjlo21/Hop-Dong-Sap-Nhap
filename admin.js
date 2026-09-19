@@ -44,11 +44,7 @@ function closeModal(){modal.hidden=true;activeApplication=null;}
 function setAdminTab(name){document.querySelectorAll('[data-admin-tab]').forEach(btn=>btn.classList.toggle('active',btn.dataset.adminTab===name));document.querySelectorAll('[data-admin-panel]').forEach(panel=>panel.hidden=panel.dataset.adminPanel!==name);}
 document.querySelectorAll('[data-admin-tab]').forEach(btn=>btn.addEventListener('click',()=>setAdminTab(btn.dataset.adminTab)));
 
-document.querySelector('#resetContentBtn')?.addEventListener('click',()=>{
-  if(!confirm('Đưa tên QĐ sáp nhập và số nhánh về mặc định?'))return;
-  fillContentForm({...currentContent,...defaults});
-  msg(contentMessage,'Đã nạp cấu hình mặc định. Bấm LƯU để áp dụng.','success');
-});
+document.querySelector('#resetContentBtn').addEventListener('click',()=>{if(!confirm('Nạp lại mẫu mặc định? Bạn vẫn cần bấm LƯU NỘI DUNG để áp dụng.'))return;fillContentForm(defaults);msg(contentMessage,'Đã nạp mẫu mặc định. Bấm LƯU để áp dụng.','success');});
 
 function updateLogoPreview(which,url){
   const img=document.querySelector(which==='A'?'#cmsLogoAPreview':'#cmsLogoBPreview');
@@ -79,44 +75,16 @@ async function loadSiteContent(){
   msg(contentMessage,data?.updated_at?`Mẫu cập nhật gần nhất: ${fmtDate(data.updated_at)}`:'Đang dùng mẫu mặc định.','');
 }
 function fillContentForm(content){
-  const c={...defaults,...(content||{})};
-  document.querySelector('#cms_sourceLegion').value=c.sourceLegion||defaults.sourceLegion||'';
-  document.querySelector('#cms_branchNumber').value=c.branchNumber||defaults.branchNumber||'3';
-  document.querySelector('#cms_targetSourcePreview').textContent=c.sourceLegion||defaults.sourceLegion||'—';
-  document.querySelector('#cms_targetBranchPreview').textContent=`${defaults.mainLegion||'PHOENIX 禄'} — Nhánh ${c.branchNumber||'3'}`;
-  document.querySelector('#cms_branchBadgePreview').textContent=`NHÁNH ${c.branchNumber||'3'}`;
+  contentForm.querySelectorAll('[name]').forEach(el=>{if(content[el.name]!=null)el.value=content[el.name];});
+  updateLogoPreview('A',content.partyALogoUrl||'assets/logo.png');updateLogoPreview('B',content.partyBLogoUrl||'');
 }
-document.querySelector('#cms_sourceLegion')?.addEventListener('input',updateQuickPreview);
-document.querySelector('#cms_branchNumber')?.addEventListener('input',updateQuickPreview);
-function updateQuickPreview(){
-  const source=document.querySelector('#cms_sourceLegion')?.value.trim()||'—';
-  const branch=document.querySelector('#cms_branchNumber')?.value.trim()||'3';
-  document.querySelector('#cms_targetSourcePreview').textContent=source;
-  document.querySelector('#cms_targetBranchPreview').textContent=`${defaults.mainLegion||'PHOENIX 禄'} — Nhánh ${branch}`;
-  document.querySelector('#cms_branchBadgePreview').textContent=`NHÁNH ${branch}`;
-}
-
 contentForm.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const sourceLegion=document.querySelector('#cms_sourceLegion').value.trim();
-  const branchNumber=document.querySelector('#cms_branchNumber').value.trim();
-  if(sourceLegion.length<2){msg(contentMessage,'Tên Quân Đoàn sáp nhập phải có ít nhất 2 ký tự.','error');return;}
-  if(!/^\\d{1,3}$/.test(branchNumber)||Number(branchNumber)<1){msg(contentMessage,'Số nhánh không hợp lệ.','error');return;}
-  msg(contentMessage,'Đang lưu cấu hình sáp nhập...');
+  e.preventDefault();const content={};contentForm.querySelectorAll('[name]').forEach(el=>content[el.name]=el.value.trim());
+  msg(contentMessage,'Đang lưu mẫu thỏa thuận...');
   const {data:{user}}=await sb.auth.getUser();
-  const content={...currentContent,sourceLegion,branchNumber};
-  // Giữ dữ liệu cũ nhưng tự cập nhật các nội dung phụ thuộc tên QĐ và số nhánh.
-  const oldSource=String(currentContent.sourceLegion||defaults.sourceLegion||'').trim();
-  const main=defaults.mainLegion||'PHOENIX 禄';
-  const target=`${main} — Nhánh ${branchNumber}`;
-  const badge=`NHÁNH ${branchNumber}`;
-  const replaceDynamic=v=>typeof v==='string'?v.replaceAll(oldSource,sourceLegion).replace(/PHOENIX 禄\\s*[—-]\\s*Nhánh\\s*\\d+/gi,target).replace(/NHÁNH\\s*\\d+/gi,badge):v;
-  Object.keys(content).forEach(k=>{if(typeof content[k]==='string')content[k]=replaceDynamic(content[k]);});
-  content.mainLegion=main;content.sourceLegion=sourceLegion;content.branchNumber=branchNumber;content.targetBranch=target;content.branchBadge=badge;
   const {error}=await sb.from('merger_site_content').upsert({id:'main',content,updated_at:new Date().toISOString(),updated_by:user?.id||null},{onConflict:'id'});
   if(error){msg(contentMessage,error.message,'error');return;}
-  currentContent=content;fillContentForm(content);
-  msg(contentMessage,'Đã lưu. Toàn bộ trang sẽ tự dùng tên QĐ và số nhánh mới khi tải lại. Hồ sơ cũ vẫn giữ snapshot.','success');
+  currentContent={...defaults,...content};msg(contentMessage,'Đã lưu. Trang public sẽ dùng mẫu mới sau khi tải lại. Các hồ sơ cũ không bị thay đổi.','success');
 });
 document.querySelector('#previewSiteBtn').addEventListener('click',()=>window.open('index.html','_blank','noopener'));
 
